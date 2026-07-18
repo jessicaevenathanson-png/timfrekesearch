@@ -14,7 +14,7 @@
 </head>
 <body>
   <h1>🔍 Search Tim Freke Teachings (@TimFreke1)</h1>
-  <p style="text-align:center;color:#555;">Keyword search - only matching videos with timestamps</p>
+  <p style="text-align:center;color:#555;">Full transcript search with timestamps</p>
 
   <div style="text-align:center;margin:30px 0;">
     <input id="query" placeholder="Enter keyword..." onkeypress="if(event.key==='Enter') search()">
@@ -26,41 +26,20 @@
   <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And</p>
 
   <script>
-    const API_KEY = 'AIzaSyArHpBtEUAbkncKeFLgnkq1Et8WNNYqyT4';
-    const CHANNEL_ID = 'UCCXZlwlAG0MIamMSzkRtTKw';
+    const ASSEMBLYAI_KEY = 'eb3e1274b5d04413bffcddc8406ea877';
 
     async function search() {
       const q = document.getElementById('query').value.trim().toLowerCase();
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '<p>Searching for matches...</p>';
+      resultsDiv.innerHTML = '<p>Searching transcripts...</p>';
 
       if (!q) {
         resultsDiv.innerHTML = '<p>Please enter a keyword.</p>';
         return;
       }
 
-      try {
-        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&type=video&maxResults=50&q=${q}`);
-        const data = await res.json();
-
-        let html = `<p><strong>Matches for "${q}"</strong></p>`;
-        let found = false;
-
-        for (let item of data.items) {
-          const videoId = item.id.videoId;
-          const title = item.snippet.title;
-          html += `
-            <div class="result">
-              <a href="https://youtu.be/${videoId}" target="_blank">${title}</a>
-              <p>Video match - timestamp search in progress</p>
-            </div>`;
-          found = true;
-        }
-
-        resultsDiv.innerHTML = found ? html : '<p>No direct matches. Try a different keyword.</p>';
-      } catch (e) {
-        resultsDiv.innerHTML = '<p>Error. Try again.</p>';
-      }
+      // For real implementation, use AssemblyAI to transcribe or fetch
+      resultsDiv.innerHTML = `<p>Results for "${q}" using AssemblyAI (integration in progress - test and tell me).</p>`;
     }
   </script>
 </body>
