@@ -29,18 +29,34 @@
   async function search() {
       const q = document.getElementById('query').value.trim().toLowerCase();
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '<p>Searching transcripts (this may take a moment on first try)...</p>';
+      resultsDiv.innerHTML = '<p>Searching... (real data coming soon)</p>';
 
       if (!q) {
         resultsDiv.innerHTML = '<p>Please enter a keyword.</p>';
         return;
       }
 
-      // Placeholder for real search - we'll add real API calls next
-      resultsDiv.innerHTML = `
-        <p><strong>Results for "${q}"</strong></p>
-        <p>Real transcript search is being added. Test a few keywords and tell me what you see so I can improve it.</p>
-      `;
+      // Simulated results for testing
+      const mockData = {
+        'solipsism': [
+          { title: "Video on Nonduality", time: "5:30", text: "The concept of solipsism is important to consider...", url: "https://youtu.be/example" }
+        ]
+      };
+
+      const matches = mockData[q] || [];
+      if (matches.length > 0) {
+        let html = `<p><strong>Results for "${q}"</strong></p>`;
+        matches.forEach(m => {
+          html += `
+            <div class="result">
+              <a href="${m.url}" target="_blank">${m.title} — ${m.time}</a>
+              <p>${m.text}</p>
+            </div>`;
+        });
+        resultsDiv.innerHTML = html;
+      } else {
+        resultsDiv.innerHTML = `<p>No matches found for "${q}". Try another keyword.</p>`;
+      }
     }
   </script>
 </body>
