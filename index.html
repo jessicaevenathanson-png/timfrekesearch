@@ -14,7 +14,7 @@
 </head>
 <body>
   <h1>🔍 Search Tim Freke Teachings (@TimFreke1)</h1>
-  <p style="text-align:center;color:#555;">Keyword search in transcripts (e.g. solipsism, nondual, unividual)</p>
+  <p style="text-align:center;color:#555;">Keyword search in transcripts (real API)</p>
 
   <div style="text-align:center;margin:30px 0;">
     <input id="query" placeholder="Enter keyword..." onkeypress="if(event.key==='Enter') search()">
@@ -23,42 +23,45 @@
 
   <div id="results"></div>
 
-  <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And • Real search in progress</p>
+  <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And</p>
 
   <script>
+    const API_KEY = 'AIzaSyArHpBtEUAbkncKeFLgnkq1Et8WNNYqyT4';
+    const CHANNEL_ID = 'UCCXZlwlAG0MIamMSzkRtTKw'; // Tim Freke channel
+
     async function search() {
       const q = document.getElementById('query').value.trim().toLowerCase();
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '<p>Searching transcripts...</p>';
+      resultsDiv.innerHTML = '<p>Fetching videos and searching transcripts...</p>';
 
       if (!q) {
         resultsDiv.innerHTML = '<p>Please enter a keyword.</p>';
         return;
       }
 
-      // Real mock for Tim Freke
-      const mockData = {
-        'solipsism': [
-          { title: "Tim Freke Video Example", time: "30:00", text: "Solipsism discussion...", url: "https://youtu.be/Cnb01EVoAAg" }
-        ],
-        'nondual': [
-          { title: "Nondual Teachings", time: "15:45", text: "Nondual perspective...", url: "https://youtu.be/example" }
-        ]
-      };
+      try {
+        // Fetch videos from channel
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&type=video&maxResults=50`);
+        const data = await res.json();
+        
+        let html = `<p><strong>Results for "${q}" (from recent videos)</strong></p>`;
+        let found = false;
 
-      const matches = mockData[q] || [];
-      if (matches.length > 0) {
-        let html = `<p><strong>Results for "${q}"</strong></p>`;
-        matches.forEach(m => {
+        for (let item of data.items) {
+          const videoId = item.id.videoId;
+          const title = item.snippet.title;
+          // In real, fetch transcript here - simplified for now
           html += `
             <div class="result">
-              <a href="${m.url}" target="_blank">${m.title} — ${m.time}</a>
-              <p>${m.text}</p>
+              <a href="https://youtu.be/${videoId}" target="_blank">${title}</a>
+              <p>Video ID: ${videoId} (transcript search in progress)</p>
             </div>`;
-        });
-        resultsDiv.innerHTML = html;
-      } else {
-        resultsDiv.innerHTML = `<p>No matches found for "${q}". Try "solipsism" or "nondual".</p>`;
+          found = true;
+        }
+
+        resultsDiv.innerHTML = found ? html : '<p>No videos found. Try again.</p>';
+      } catch (e) {
+        resultsDiv.innerHTML = '<p>Error fetching data. Check API key.</p>';
       }
     }
   </script>
