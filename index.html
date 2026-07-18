@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Tim Freke Teachings</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; }
+    input { padding: 12px; width: 70%; font-size: 18px; }
+    button { padding: 12px 24px; font-size: 18px; }
+    .result { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Search Tim Freke Teachings (@TimFreke1)</h1>
+  <p>Keyword search in transcripts (e.g. solipsism, nondual)</p>
+
+  <input id="query" placeholder="Enter keyword" onkeypress="if(event.key === 'Enter') search()">
+  <button onclick="search()">Search</button>
+
+  <div id="results"></div>
+
+  <script>
+    async function search() {
+      const q = document.getElementById('query').value.trim();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '<p>Searching...</p>';
+
+      // Placeholder - replace with real logic in full app
+      resultsDiv.innerHTML = `<p>Results for "${q}" will appear here. (Full implementation in next step)</p>`;
+    }
+  </script>
+</body>
+</html>
