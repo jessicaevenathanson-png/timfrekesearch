@@ -26,17 +26,21 @@
   <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And</p>
 
   <script>
-    async function search() {
+  async function search() {
       const q = document.getElementById('query').value.trim().toLowerCase();
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '<p>Searching transcripts...</p>';
+      resultsDiv.innerHTML = '<p>Searching transcripts (this may take a moment on first try)...</p>';
 
       if (!q) {
         resultsDiv.innerHTML = '<p>Please enter a keyword.</p>';
         return;
       }
 
-      resultsDiv.innerHTML = `<p>Results for "${q}" (full implementation in progress - test keywords and tell me results)</p>`;
+      // Placeholder for real search - we'll add real API calls next
+      resultsDiv.innerHTML = `
+        <p><strong>Results for "${q}"</strong></p>
+        <p>Real transcript search is being added. Test a few keywords and tell me what you see so I can improve it.</p>
+      `;
     }
   </script>
 </body>
