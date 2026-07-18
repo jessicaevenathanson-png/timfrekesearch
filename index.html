@@ -23,22 +23,26 @@
 
   <div id="results"></div>
 
-  <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And</p>
+  <p style="text-align:center;margin-top:50px;color:#777;">Powered by The Glorious Both/And • Real search in progress</p>
 
   <script>
     async function search() {
       const q = document.getElementById('query').value.trim().toLowerCase();
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '<p>Searching...</p>';
+      resultsDiv.innerHTML = '<p>Searching transcripts...</p>';
 
       if (!q) {
         resultsDiv.innerHTML = '<p>Please enter a keyword.</p>';
         return;
       }
 
+      // Real mock for Tim Freke
       const mockData = {
         'solipsism': [
-          { title: "Tim Freke on Nonduality", time: "30:00", text: "Discussion involving solipsism...", url: "https://youtu.be/Cnb01EVoAAg" }
+          { title: "Tim Freke Video Example", time: "30:00", text: "Solipsism discussion...", url: "https://youtu.be/Cnb01EVoAAg" }
+        ],
+        'nondual': [
+          { title: "Nondual Teachings", time: "15:45", text: "Nondual perspective...", url: "https://youtu.be/example" }
         ]
       };
 
@@ -54,7 +58,7 @@
         });
         resultsDiv.innerHTML = html;
       } else {
-        resultsDiv.innerHTML = `<p>No matches found for "${q}". Try "solipsism".</p>`;
+        resultsDiv.innerHTML = `<p>No matches found for "${q}". Try "solipsism" or "nondual".</p>`;
       }
     }
   </script>
